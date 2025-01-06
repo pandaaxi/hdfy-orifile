@@ -53,7 +53,7 @@ class ProxyTile extends HookConsumerWidget with PresLogger {
       ),
       trailing: proxy.urlTestDelay != 0
           ? Text(
-              proxy.urlTestDelay > 65000 ? "×" : proxy.urlTestDelay.toString(),
+              proxy.urlTestDelay > 65000 ? "timeout" : proxy.urlTestDelay.toString(),
               style: TextStyle(color: delayColor(context, proxy.urlTestDelay)),
             )
           : null,
