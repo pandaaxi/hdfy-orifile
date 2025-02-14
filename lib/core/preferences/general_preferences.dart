@@ -20,6 +20,11 @@ abstract class Preferences {
     overrideValue: _debugIntroPage && kDebugMode ? false : null,
   );
 
+  static final proMode = PreferencesNotifier.create(
+    'pro_mode',
+    false,
+  );
+
   static final silentStart = PreferencesNotifier.create<bool, bool>(
     "silent_start",
     false,

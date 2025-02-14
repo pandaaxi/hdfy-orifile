@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:dartx/dartx.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -9,7 +8,6 @@ import 'package:hiddify/core/localization/translations.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-// import 'package:permission_handler/permission_handler.dart';
 
 const permissions = [Permissions.CAMERA];
 const permissionGroup = [PermissionGroup.Camera];

@@ -12,7 +12,6 @@ import 'package:hiddify/features/connection/notifier/connection_notifier.dart';
 import 'package:hiddify/features/connection/widget/experimental_feature_notice.dart';
 import 'package:hiddify/features/profile/notifier/active_profile_notifier.dart';
 import 'package:hiddify/features/proxy/active/active_proxy_notifier.dart';
-import 'package:hiddify/gen/assets.gen.dart';
 import 'package:hiddify/utils/alerts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -53,6 +52,17 @@ class ConnectionButton extends HookConsumerWidget {
       return true;
     }
 
+    const startIcon = Icon(
+      Icons.play_arrow_rounded,
+      size: 80,
+      color: Colors.green,
+    );
+    const stopIcon = Icon(
+      Icons.stop_rounded,
+      size: 80,
+      color: Colors.red,
+    );
+
     return _ConnectionButton(
       onTap: switch (connectionStatus) {
         AsyncData(value: Disconnected()) || AsyncError() => () async {
@@ -86,13 +96,10 @@ class ConnectionButton extends HookConsumerWidget {
         _ => Colors.red,
       },
       image: switch (connectionStatus) {
-        AsyncData(value: Connected()) when requiresReconnect == true => Assets.images.disconnectNorouz,
-        AsyncData(value: Connected()) => Assets.images.connectNorouz,
-        AsyncData(value: _) => Assets.images.disconnectNorouz,
-        _ => Assets.images.disconnectNorouz,
-        AsyncData(value: Disconnected()) || AsyncError() => Assets.images.disconnectNorouz,
-        AsyncData(value: Connected()) => Assets.images.connectNorouz,
-        _ => Assets.images.disconnectNorouz,
+        AsyncData(value: Connected()) when requiresReconnect == true => startIcon,
+        AsyncData(value: Connected()) => stopIcon,
+        AsyncData(value: _) => startIcon,
+        _ => const CircularProgressIndicator(),
       },
       useImage: today.day >= 19 && today.day <= 23 && today.month == 3,
     );
@@ -113,7 +120,7 @@ class _ConnectionButton extends StatelessWidget {
   final bool enabled;
   final String label;
   final Color buttonColor;
-  final AssetGenImage image;
+  final Widget image;
   final bool useImage;
 
   @override
@@ -145,21 +152,12 @@ class _ConnectionButton extends StatelessWidget {
               child: InkWell(
                 onTap: onTap,
                 child: Padding(
-                  padding: const EdgeInsets.all(36),
+                  padding: const EdgeInsets.all(30),
                   child: TweenAnimationBuilder(
                     tween: ColorTween(end: buttonColor),
                     duration: const Duration(milliseconds: 250),
                     builder: (context, value, child) {
-                      if (useImage) {
-                        return image.image(filterQuality: FilterQuality.medium);
-                      } else {
-                        return Assets.images.logo.svg(
-                          colorFilter: ColorFilter.mode(
-                            value!,
-                            BlendMode.srcIn,
-                          ),
-                        );
-                      }
+                      return image;
                     },
                   ),
                 ),

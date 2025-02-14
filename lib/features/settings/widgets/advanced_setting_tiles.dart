@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:hiddify/core/localization/translations.dart';
 import 'package:hiddify/core/preferences/general_preferences.dart';
 import 'package:hiddify/core/router/router.dart';
-import 'package:hiddify/features/common/general_pref_tiles.dart';
 import 'package:hiddify/features/per_app_proxy/model/per_app_proxy_mode.dart';
 import 'package:hiddify/features/settings/notifier/platform_settings_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,16 +22,21 @@ class AdvancedSettingTiles extends HookConsumerWidget {
 
     return Column(
       children: [
-        // const RegionPrefTile(),
-        // ListTile(
-        //   title: Text(t.settings.geoAssets.pageTitle),
-        //   leading: const Icon(
-        //     FluentIcons.arrow_routing_rectangle_multiple_24_regular,
-        //   ),
-        //   onTap: () async {
-        //     // await const GeoAssetsRoute().push(context);
-        //   },
-        // ),
+        ListTile(
+          title: Text(t.config.pageTitle),
+          leading: const Icon(FluentIcons.box_edit_20_regular),
+          onTap: () {
+            const ConfigOptionsRoute().push(context);
+          },
+        ),
+        ListTile(
+          title: Text(t.logs.pageTitle),
+          leading: const Icon(FluentIcons.document_text_20_regular),
+          onTap: () {
+            const LogsOverviewRoute().push(context);
+          },
+        ),
+
         if (Platform.isAndroid) ...[
           ListTile(
             title: Text(t.settings.network.perAppProxyPageTitle),

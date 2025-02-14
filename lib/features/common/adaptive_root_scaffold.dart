@@ -110,20 +110,20 @@ class _CustomAdaptiveScaffold extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       key: RootScaffold.stateKey,
-      drawer: Breakpoints.small.isActive(context)
-          ? Drawer(
-              width: (MediaQuery.sizeOf(context).width * 0.88).clamp(1, 304),
-              child: NavigationRail(
-                extended: true,
-                selectedIndex: selectedWithOffset(drawerDestinationRange),
-                destinations: destinationsSlice(drawerDestinationRange)
-                    .map((dest) => AdaptiveScaffold.toRailDestination(dest))
-                    .toList(),
-                onDestinationSelected: (index) =>
-                    selectWithOffset(index, drawerDestinationRange),
-              ),
-            )
-          : null,
+      // drawer: Breakpoints.small.isActive(context)
+      //     ? Drawer(
+      //         width: (MediaQuery.sizeOf(context).width * 0.88).clamp(1, 304),
+      //         child: NavigationRail(
+      //           extended: true,
+      //           selectedIndex: selectedWithOffset(drawerDestinationRange),
+      //           destinations: destinationsSlice(drawerDestinationRange)
+      //               .map((dest) => AdaptiveScaffold.toRailDestination(dest))
+      //               .toList(),
+      //           onDestinationSelected: (index) =>
+      //               selectWithOffset(index, drawerDestinationRange),
+      //         ),
+      //       )
+      //     : null,
       body: AdaptiveLayout(
         primaryNavigation: SlotLayout(
           config: <Breakpoint, SlotLayoutConfig>{
@@ -163,14 +163,14 @@ class _CustomAdaptiveScaffold extends HookConsumerWidget {
         ),
       ),
       // AdaptiveLayout bottom sheet has accessibility issues
-      bottomNavigationBar: useBottomSheet && Breakpoints.small.isActive(context)
-          ? NavigationBar(
-              selectedIndex: selectedWithOffset(bottomDestinationRange) ?? 0,
-              destinations: destinationsSlice(bottomDestinationRange),
-              onDestinationSelected: (index) =>
-                  selectWithOffset(index, bottomDestinationRange),
-            )
-          : null,
+      // bottomNavigationBar: useBottomSheet && Breakpoints.small.isActive(context)
+      //     ? NavigationBar(
+      //         selectedIndex: selectedWithOffset(bottomDestinationRange) ?? 0,
+      //         destinations: destinationsSlice(bottomDestinationRange),
+      //         onDestinationSelected: (index) =>
+      //             selectWithOffset(index, bottomDestinationRange),
+      //       )
+      //     : null,
     );
   }
 }
