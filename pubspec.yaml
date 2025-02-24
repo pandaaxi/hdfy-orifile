@@ -1,5 +1,5 @@
-name: hiddify
-description: Cross Platform Multi Protocol Proxy Frontend.
+name: k0sha_vpn
+description: App for k0sha.org.
 publish_to: "none"
 version: 0.0.1+7
 
@@ -88,7 +88,7 @@ dependencies:
   json_path: ^0.7.1
   # permission_handler: ^11.3.0 # is not compatible with windows
   #flutter_easy_permission: ^1.1.2
-  flutter_easy_permission: 
+  flutter_easy_permission:
      git: https://github.com/unger1984/flutter_easy_permission.git
   in_app_review: ^2.0.9
   # circle_flags: ^4.0.2

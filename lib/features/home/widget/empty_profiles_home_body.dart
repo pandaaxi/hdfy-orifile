@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hiddify/core/localization/translations.dart';
-import 'package:hiddify/core/model/failures.dart';
-import 'package:hiddify/core/router/router.dart';
+import 'package:k0sha_vpn/core/localization/translations.dart';
+import 'package:k0sha_vpn/core/model/failures.dart';
+import 'package:k0sha_vpn/core/router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../utils/alerts.dart';

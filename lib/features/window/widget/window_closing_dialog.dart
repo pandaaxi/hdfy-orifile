@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hiddify/core/localization/translations.dart';
-import 'package:hiddify/core/preferences/actions_at_closing.dart';
-import 'package:hiddify/core/preferences/general_preferences.dart';
-import 'package:hiddify/features/window/notifier/window_notifier.dart';
+import 'package:k0sha_vpn/core/localization/translations.dart';
+import 'package:k0sha_vpn/core/preferences/actions_at_closing.dart';
+import 'package:k0sha_vpn/core/preferences/general_preferences.dart';
+import 'package:k0sha_vpn/features/window/notifier/window_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WindowClosingDialog extends ConsumerStatefulWidget {

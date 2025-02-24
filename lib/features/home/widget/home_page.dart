@@ -1,14 +1,14 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:hiddify/core/localization/translations.dart';
-import 'package:hiddify/core/model/failures.dart';
-import 'package:hiddify/features/common/nested_app_bar.dart';
-import 'package:hiddify/features/home/widget/connection_button.dart';
-import 'package:hiddify/features/home/widget/empty_profiles_home_body.dart';
-import 'package:hiddify/features/profile/notifier/active_profile_notifier.dart';
-import 'package:hiddify/features/proxy/active/active_proxy_delay_indicator.dart';
-import 'package:hiddify/features/proxy/active/active_proxy_footer.dart';
-import 'package:hiddify/utils/utils.dart';
+import 'package:k0sha_vpn/core/localization/translations.dart';
+import 'package:k0sha_vpn/core/model/failures.dart';
+import 'package:k0sha_vpn/features/common/nested_app_bar.dart';
+import 'package:k0sha_vpn/features/home/widget/connection_button.dart';
+import 'package:k0sha_vpn/features/home/widget/empty_profiles_home_body.dart';
+import 'package:k0sha_vpn/features/profile/notifier/active_profile_notifier.dart';
+import 'package:k0sha_vpn/features/proxy/active/active_proxy_delay_indicator.dart';
+import 'package:k0sha_vpn/features/proxy/active/active_proxy_footer.dart';
+import 'package:k0sha_vpn/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 

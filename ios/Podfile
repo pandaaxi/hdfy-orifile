@@ -39,6 +39,34 @@ target 'Runner' do
   end
 end
 
+def unsafe_patch_old_sentry_for_xcode_16
+  file_SentryCrashMonitor_CPPException = File.join(__dir__, "Pods/Sentry/Sources/SentryCrash/Recording/Monitors/SentryCrashMonitor_CPPException.cpp")
+  add_to_SentryCrashMonitor_CPPException = "#include <exception>\n"
+
+  file_SentryCrashMachineContext = File.join(__dir__, "Pods/Sentry/Sources/SentryCrash/Recording/Tools/SentryCrashMachineContext.c")
+  add_to_SentryCrashMachineContext = "#include <sys/_types/_ucontext64.h>\n"
+
+  original_content_SentryCrashMonitor_CPPException = File.read(file_SentryCrashMonitor_CPPException)
+  unless original_content_SentryCrashMonitor_CPPException.include?(add_to_SentryCrashMonitor_CPPException.strip)
+    File.open(file_SentryCrashMonitor_CPPException, "w") do |file|
+      file.puts add_to_SentryCrashMonitor_CPPException + original_content_SentryCrashMonitor_CPPException
+    end
+    puts "[Sentry] Patched file: #{file_SentryCrashMonitor_CPPException}"
+  else
+    puts "[Sentry] No patch needed for: #{file_SentryCrashMonitor_CPPException}"
+  end
+
+  original_content_SentryCrashMachineContext = File.read(file_SentryCrashMachineContext)
+  unless original_content_SentryCrashMachineContext.include?(add_to_SentryCrashMachineContext.strip)
+    File.open(file_SentryCrashMachineContext, "w") do |file|
+      file.puts add_to_SentryCrashMachineContext + original_content_SentryCrashMachineContext
+    end
+    puts "[Sentry] Patched file: #{file_SentryCrashMachineContext}"
+  else
+    puts "[Sentry] No patch needed for: #{file_SentryCrashMachineContext}"
+  end
+end
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
@@ -46,4 +74,5 @@ post_install do |installer|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
     end
   end
+  unsafe_patch_old_sentry_for_xcode_16()
 end

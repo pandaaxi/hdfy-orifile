@@ -8,6 +8,6 @@
         <intent
             android:action="android.intent.action.MAIN"
             android:targetClass="com.k0sha.vpn.ShortcutActivity"
-            android:targetPackage="app.hiddify.com" />
+            android:targetPackage="com.k0sha.vpn_service" />
     </shortcut>
 </shortcuts>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hiddify/features/common/adaptive_root_scaffold.dart';
-import 'package:hiddify/utils/utils.dart';
+import 'package:k0sha_vpn/features/common/adaptive_root_scaffold.dart';
+import 'package:k0sha_vpn/utils/utils.dart';
 
 bool showDrawerButton(BuildContext context) {
   // if (!useMobileRouter) return true;

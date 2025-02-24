@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:hiddify/core/router/router.dart';
-import 'package:hiddify/utils/utils.dart';
+import 'package:k0sha_vpn/utils/utils.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

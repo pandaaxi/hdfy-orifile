@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hiddify/core/localization/translations.dart';
-import 'package:hiddify/features/common/nested_app_bar.dart';
-import 'package:hiddify/features/settings/widgets/app_version_info.dart';
-import 'package:hiddify/features/settings/widgets/disable_pro_button.dart';
-import 'package:hiddify/features/settings/widgets/remove_connection_button.dart';
-import 'package:hiddify/features/settings/widgets/widgets.dart';
+import 'package:k0sha_vpn/core/localization/translations.dart';
+import 'package:k0sha_vpn/features/common/nested_app_bar.dart';
+import 'package:k0sha_vpn/features/settings/widgets/app_version_info.dart';
+import 'package:k0sha_vpn/features/settings/widgets/disable_pro_button.dart';
+import 'package:k0sha_vpn/features/settings/widgets/remove_connection_button.dart';
+import 'package:k0sha_vpn/features/settings/widgets/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/preferences/general_preferences.dart';
