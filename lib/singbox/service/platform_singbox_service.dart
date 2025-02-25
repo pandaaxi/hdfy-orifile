@@ -14,7 +14,7 @@ import 'package:k0sha_vpn/utils/custom_loggers.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PlatformSingboxService with InfraLogger implements SingboxService {
-  static const channelPrefix = "com.k0sha.vpn_service";
+  static const channelPrefix = "com.k0sha.vpn-service";
 
   static const methodChannel = MethodChannel("$channelPrefix/method");
   static const statusChannel = EventChannel("$channelPrefix/service.status", JSONMethodCodec());

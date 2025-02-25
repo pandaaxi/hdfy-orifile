@@ -6,5 +6,5 @@
 //
 
 BASE_BUNDLE_IDENTIFIER=com.k0sha.vpn
-SERVICE_IDENTIFIER=com.k0sha.vpn_service
+SERVICE_IDENTIFIER=com.k0sha.vpn-service
 DEVELOPMENT_TEAM=NV36ASU785

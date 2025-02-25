@@ -13,7 +13,7 @@ abstract interface class PerAppProxyRepository {
 class PerAppProxyRepositoryImpl
     with InfraLogger
     implements PerAppProxyRepository {
-  final _methodChannel = const MethodChannel("com.k0sha.vpn_service/platform");
+  final _methodChannel = const MethodChannel("com.k0sha.vpn-service/platform");
 
   @override
   TaskEither<String, List<InstalledPackageInfo>> getInstalledPackages() {

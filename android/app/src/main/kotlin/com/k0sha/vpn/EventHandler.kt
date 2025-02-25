@@ -12,8 +12,8 @@ class EventHandler : FlutterPlugin {
 
     companion object {
         const val TAG = "A/EventHandler"
-        const val SERVICE_STATUS = "com.k0sha.vpn_service/service.status"
-        const val SERVICE_ALERTS = "com.k0sha.vpn_service/service.alerts"
+        const val SERVICE_STATUS = "com.k0sha.vpn-service/service.status"
+        const val SERVICE_ALERTS = "com.k0sha.vpn-service/service.alerts"
     }
 
     private var statusChannel: EventChannel? = null
