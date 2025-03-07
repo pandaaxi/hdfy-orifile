@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hiddify/core/localization/translations.dart';
+import 'package:hiddify/core/theme/theme_extensions.dart';
 import 'package:hiddify/core/widget/animated_text.dart';
 import 'package:hiddify/features/config_option/notifier/config_option_notifier.dart';
 import 'package:hiddify/features/connection/model/connection_status.dart';
 import 'package:hiddify/features/connection/notifier/connection_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// TODO: rewrite
 class ConnectionButton extends HookConsumerWidget {
   const ConnectionButton({super.key});
 
@@ -17,6 +17,17 @@ class ConnectionButton extends HookConsumerWidget {
     final connectionStatus = ref.watch(connectionNotifierProvider);
     final isConnected = connectionStatus.valueOrNull is Connected;
     final isReconnectNeeded = ref.watch(configOptionNotifierProvider).valueOrNull == true;
+    final isLoading = connectionStatus is AsyncLoading;
+
+    // Get theme extension
+    final buttonTheme = Theme.of(context).extension<ConnectionButtonTheme>();
+
+    // Use theme colors or fallback to defaults
+    final connectedColor = buttonTheme?.connectedColor ?? Colors.green.shade400;
+    final idleColor = buttonTheme?.idleColor ?? Colors.red.shade400;
+
+    // Use the appropriate color based on connection state
+    final currentColor = isConnected ? connectedColor : idleColor;
 
     final buttonText = switch (connectionStatus) {
       AsyncData(value: Connected()) when isReconnectNeeded => t.connection.reconnect,
@@ -24,100 +35,84 @@ class ConnectionButton extends HookConsumerWidget {
       _ => t.connection.reconnect,
     };
 
+    // Get screen size for responsiveness
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // ===== BUTTON SIZE CUSTOMIZATION =====
+    // Modify these values to change button dimensions
+
+    // Button width - increase for wider button
+    final toggleWidth = screenWidth < 600 ? screenWidth * 0.45 : 240.0;
+
+    // Button height - modify this multiplier (0.45) to make button taller or shorter
+    // Higher values = taller button, Lower values = shorter button
+    final toggleHeight = toggleWidth * 0.45; // Increased from 0.4 to 0.45 for taller button
+
+    // Knob size - adjust the subtraction value for margin between knob and button edge
+    // Lower values = larger knob, Higher values = smaller knob
+    final knobSize = toggleHeight - 6;
+    // =====================================
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: () async {
-            if (connectionStatus is! AsyncLoading) {
+            if (!isLoading) {
               await ref.read(connectionNotifierProvider.notifier).toggleConnection();
             }
           },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            width: 200,
-            height: 60,
+          child: Container(
+            width: toggleWidth,
+            height: toggleHeight,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: isConnected ? Colors.green.shade400 : Colors.red.shade400,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 8,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+              borderRadius: BorderRadius.circular(toggleHeight / 2),
+              color: currentColor,
             ),
             child: Stack(
               children: [
+                // Circular knob - horizontal movement
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
-                  left: isConnected ? 100 : 0,
+                  left: isConnected ? toggleWidth - knobSize - 3 : 3,
+                  top: (toggleHeight - knobSize) / 2, // Center vertically
                   child: Container(
-                    width: 100,
-                    height: 60,
-                    decoration: BoxDecoration(
+                    width: knobSize,
+                    height: knobSize,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
                     ),
                     child: Center(
-                      child: Icon(
-                        isConnected ? Icons.power_settings_new : Icons.power_off,
-                        color: isConnected ? Colors.green.shade400 : Colors.red.shade400,
-                        size: 28,
-                      ),
+                      child: isLoading
+                          ? SizedBox(
+                              width: knobSize * 0.5,
+                              height: knobSize * 0.5,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                valueColor: AlwaysStoppedAnimation<Color>(currentColor),
+                              ),
+                            )
+                          : Icon(
+                              isConnected ? Icons.check : Icons.close,
+                              color: currentColor,
+                              size: knobSize * 0.5,
+                            ),
                     ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Text(
-                          'ON',
-                          style: TextStyle(
-                            color: isConnected ? Colors.white : Colors.transparent,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Text(
-                          'OFF',
-                          style: TextStyle(
-                            color: isConnected ? Colors.transparent : Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 24),
         AnimatedText(
           buttonText,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: isConnected ? Colors.green.shade400 : Colors.red.shade400,
+                color: currentColor,
                 fontWeight: FontWeight.bold,
+                fontSize: 22,
               ),
         ).animate().fadeIn(duration: 300.ms),
       ],
