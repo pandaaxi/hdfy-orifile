@@ -1,6 +1,6 @@
 {
   "general": {
-    "appTitle": "Hiddify",
+    "appTitle": "Homiefroxy",
     "reset": "Réinitialiser",
     "toggle": {
       "enabled": "Activé",
@@ -180,7 +180,6 @@
         "af": "Afghanistan (af) 🇦🇫",
         "id": "Indonésie (id) 🇮🇩",
         "tr": "Turquie (tr) 🇹🇷",
-        "br": "Brésil (br) 🇧🇷",
         "other": "Autre"
       },
       "themeMode": "Mode Thème",
@@ -199,13 +198,7 @@
       "ignoreBatteryOptimizationsMsg": "Supprimez les restrictions pour des performances VPN optimales",
       "dynamicNotification": "Vitesse d'affichage dans les notifications",
       "hapticFeedback": "Retour haptique",
-      "autoIpCheck": "Vérifier automatiquement l'adresse IP de la connexion",
-      "actionAtClosing": "Action à la clôture",
-      "actionsAtClosing": {
-        "askEachTime": "Demander à chaque fois",
-        "hide": "Cacher",
-        "exit": "Sortir"
-      }
+      "autoIpCheck": "Vérifier automatiquement l'adresse IP de la connexion"
     },
     "advanced": {
       "sectionTitle": "Avancé",
@@ -317,9 +310,9 @@
     }
   },
   "play": {
-    "title": "Hiddify (aperçu)",
+    "title": "Homiefroxy (aperçu)",
     "short_description": "Auto, SSH, VLESS, VMess, cheval de Troie, Reality, Sing-Box, Clash, XRay, Shadowsocks",
-    "full_description": "L'objectif principal de Hiddify est de fournir un client de tunneling sécurisé, convivial et efficace. Il vous permet d'acheminer tout le trafic ou le trafic d'applications sélectionnées vers un serveur distant de votre choix, en utilisant l'autorisation du service VPN.<inlang-LineFeed>\nRemarque : Nous ne fournissons aucun serveur ; les utilisateurs sont tenus de garantir que leurs activités en ligne restent privées en utilisant leur propre serveur auto-hébergé ou des serveurs de confiance.<inlang-LineFeed>\nNous prenons en charge les serveurs avec :\n- Lien d'abonnement normal V2Ray/XRay\n- Lien d'abonnement Clash\n- Lien d'abonnement à Sing-Box<inlang-LineFeed>\nQuelles sont nos caractéristiques uniques ?\n- Convivial\n- Optimisé et rapide\n- Sélectionnez automatiquement le plus bas Ping\n- Afficher les informations d'utilisation de l'utilisateur\n- Importez facilement des sous-liens en un seul clic grâce au deeplinking\n- Gratuit et sans publicité\n- Changez facilement de sous-liens utilisateur\n- De plus en plus<inlang-LineFeed>\nSoutien:\n- Tous les protocoles pris en charge par Sing-Box\n- VLESS + XTLS Réalité, Vision\n-VMess\n- Cheval de Troie\n- Chaussettes Shadow\n- Réalité\n- WireGuard\n-V2Ray\n- Hystérie2\n-TUICv5\n-SSH\n-OmbreTLS<inlang-LineFeed><inlang-LineFeed>\nLe code source existe sur https://github.com/hiddify/Hiddify-Next\nLe cœur de l'application est basé sur Sing-Box open source.<inlang-LineFeed>\nDescription de l'autorisation :\n- Service VPN : L'objectif de cette application étant de fournir un client de tunneling sécurisé, convivial et efficace, nous avons besoin de cette autorisation pour pouvoir acheminer le trafic via un tunnel vers le serveur distant.\n- REQUÊTER TOUS LES PAQUETS : cette autorisation est utilisée pour permettre aux utilisateurs d'inclure ou d'exclure des applications spécifiques pour le tunneling.\n- RECEVOIR LE BOOT TERMINÉ : Cette autorisation peut être activée ou désactivée à partir des paramètres de l'application pour activer cette application au démarrage de l'appareil.\n- POST NOTIFICATIONS : Cette autorisation est essentielle car nous utilisons un service de premier plan pour assurer le fonctionnement continu du service VPN.\n- Cette application est exempte de publicités. Les données d'analyse et de crash n'ont lieu qu'avec le consentement explicite de l'utilisateur lors de la première utilisation de l'application."
+    "full_description": "L'objectif principal de Homiefroxy est de fournir un client de tunneling sécurisé, convivial et efficace. Il vous permet d'acheminer tout le trafic ou le trafic d'applications sélectionnées vers un serveur distant de votre choix, en utilisant l'autorisation du service VPN.<inlang-LineFeed>\nRemarque : Nous ne fournissons aucun serveur ; les utilisateurs sont tenus de garantir que leurs activités en ligne restent privées en utilisant leur propre serveur auto-hébergé ou des serveurs de confiance.<inlang-LineFeed>\nNous prenons en charge les serveurs avec :\n- Lien d'abonnement normal V2Ray/XRay\n- Lien d'abonnement Clash\n- Lien d'abonnement à Sing-Box<inlang-LineFeed>\nQuelles sont nos caractéristiques uniques ?\n- Convivial\n- Optimisé et rapide\n- Sélectionnez automatiquement le plus bas Ping\n- Afficher les informations d'utilisation de l'utilisateur\n- Importez facilement des sous-liens en un seul clic grâce au deeplinking\n- Gratuit et sans publicité\n- Changez facilement de sous-liens utilisateur\n- De plus en plus<inlang-LineFeed>\nSoutien:\n- Tous les protocoles pris en charge par Sing-Box\n- VLESS + XTLS Réalité, Vision\n-VMess\n- Cheval de Troie\n- Chaussettes Shadow\n- Réalité\n- WireGuard\n-V2Ray\n- Hystérie2\n-TUICv5\n-SSH\n-OmbreTLS<inlang-LineFeed><inlang-LineFeed>\nLe code source existe sur https://github.com/Homiefroxy/Homiefroxy-Next\nLe cœur de l'application est basé sur Sing-Box open source.<inlang-LineFeed>\nDescription de l'autorisation :\n- Service VPN : L'objectif de cette application étant de fournir un client de tunneling sécurisé, convivial et efficace, nous avons besoin de cette autorisation pour pouvoir acheminer le trafic via un tunnel vers le serveur distant.\n- REQUÊTER TOUS LES PAQUETS : cette autorisation est utilisée pour permettre aux utilisateurs d'inclure ou d'exclure des applications spécifiques pour le tunneling.\n- RECEVOIR LE BOOT TERMINÉ : Cette autorisation peut être activée ou désactivée à partir des paramètres de l'application pour activer cette application au démarrage de l'appareil.\n- POST NOTIFICATIONS : Cette autorisation est essentielle car nous utilisons un service de premier plan pour assurer le fonctionnement continu du service VPN.\n- Cette application est exempte de publicités. Les données d'analyse et de crash n'ont lieu qu'avec le consentement explicite de l'utilisateur lors de la première utilisation de l'application."
   },
   "connection": {
     "tapToConnect": "Appuyez pour vous connecter",
@@ -334,10 +327,6 @@
     "reconnectMsg": "Se reconnecter pour prendre en compte les changements..."
   },
   "config": {
-    "useXrayCoreWhenPossible": {
-      "Label": "Utiliser Xray-core lorsque cela est possible",
-      "Description": "Utiliser Xray-core lors de l'analyse des sous-liens. Vous devez réimporter le sous-lien pour activer cette option."
-    },
     "resetBtn": "Options de réinitialisation",
     "serviceMode": "Mode de service",
     "quickSettings": "Réglages rapides",
@@ -427,11 +416,5 @@
     "warpNoiseSize": "Taille du bruit",
     "warpNoiseMode": "Mode bruit",
     "warpNoiseDelay": "Retard de bruit"
-  },
-  "window": {
-    "hide": "Cacher",
-    "close": "Sortir",
-    "alertMessage": "Cacher ou quitter l'application ?",
-    "remember": "Se souvenir de mon choix"
   }
 }

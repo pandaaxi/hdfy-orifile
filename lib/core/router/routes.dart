@@ -4,10 +4,17 @@ import 'package:hiddify/core/router/app_router.dart';
 import 'package:hiddify/features/common/adaptive_root_scaffold.dart';
 import 'package:hiddify/features/config_option/overview/config_options_page.dart';
 import 'package:hiddify/features/config_option/widget/quick_settings_modal.dart';
-
 import 'package:hiddify/features/home/widget/home_page.dart';
 import 'package:hiddify/features/intro/widget/intro_page.dart';
 import 'package:hiddify/features/log/overview/logs_overview_page.dart';
+import 'package:hiddify/features/panel/xboard/views/components/user_info/order_page.dart';
+
+import 'package:hiddify/features/panel/xboard/views/forget_password_view.dart';
+import 'package:hiddify/features/panel/xboard/views/login_view.dart';
+import 'package:hiddify/features/panel/xboard/views/purchase_page.dart';
+import 'package:hiddify/features/panel/xboard/views/register_view.dart';
+import 'package:hiddify/features/panel/xboard/views/user_info_page.dart';
+
 import 'package:hiddify/features/per_app_proxy/overview/per_app_proxy_page.dart';
 import 'package:hiddify/features/profile/add/add_profile_modal.dart';
 import 'package:hiddify/features/profile/details/profile_details_page.dart';
@@ -19,7 +26,8 @@ import 'package:hiddify/utils/utils.dart';
 
 part 'routes.g.dart';
 
-GlobalKey<NavigatorState>? _dynamicRootKey = useMobileRouter ? rootNavigatorKey : null;
+GlobalKey<NavigatorState>? dynamicRootKey =
+    useMobileRouter ? rootNavigatorKey : null;
 
 @TypedShellRoute<MobileWrapperRoute>(
   routes: [
@@ -75,6 +83,18 @@ GlobalKey<NavigatorState>? _dynamicRootKey = useMobileRouter ? rootNavigatorKey 
       path: "/proxies",
       name: ProxiesRoute.name,
     ),
+    TypedGoRoute<PurchaseRoute>(
+      path: "/purchase",
+      name: PurchaseRoute.name,
+    ),
+    TypedGoRoute<OrderRoute>(
+      path: "/order",
+      name: OrderRoute.name,
+    ),
+    TypedGoRoute<UserInfoRoute>(
+      path: "/user-info",
+      name: UserInfoRoute.name,
+    ),
   ],
 )
 class MobileWrapperRoute extends ShellRouteData {
@@ -114,6 +134,18 @@ class MobileWrapperRoute extends ShellRouteData {
         ),
       ],
     ),
+    TypedGoRoute<PurchaseRoute>(
+      path: "/purchase",
+      name: PurchaseRoute.name,
+    ),
+    TypedGoRoute<OrderRoute>(
+      path: "/order",
+      name: OrderRoute.name,
+    ),
+    TypedGoRoute<UserInfoRoute>(
+      path: "/user-info",
+      name: UserInfoRoute.name,
+    ),
     TypedGoRoute<ProxiesRoute>(
       path: "/proxies",
       name: ProxiesRoute.name,
@@ -125,7 +157,6 @@ class MobileWrapperRoute extends ShellRouteData {
     TypedGoRoute<SettingsRoute>(
       path: "/settings",
       name: SettingsRoute.name,
-      routes: [],
     ),
     TypedGoRoute<LogsOverviewRoute>(
       path: "/logs",
@@ -143,6 +174,63 @@ class DesktopWrapperRoute extends ShellRouteData {
   @override
   Widget builder(BuildContext context, GoRouterState state, Widget navigator) {
     return AdaptiveRootScaffold(navigator);
+  }
+}
+
+// 定义登录路由
+@TypedGoRoute<LoginRoute>(
+  path: "/login",
+  name: LoginRoute.name,
+)
+class LoginRoute extends GoRouteData {
+  const LoginRoute();
+  static const name = "Login";
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const MaterialPage(
+      fullscreenDialog: true,
+      name: name,
+      child: LoginPage(),
+    );
+  }
+}
+
+// 定义注册路由
+@TypedGoRoute<RegisterRoute>(
+  path: "/register",
+  name: RegisterRoute.name,
+)
+class RegisterRoute extends GoRouteData {
+  const RegisterRoute();
+  static const name = "Register";
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const MaterialPage(
+      fullscreenDialog: true,
+      name: name,
+      child: RegisterPage(),
+    );
+  }
+}
+
+// 定义忘记密码路由
+@TypedGoRoute<ForgetPasswordRoute>(
+  path: "/forget-password",
+  name: ForgetPasswordRoute.name,
+)
+class ForgetPasswordRoute extends GoRouteData {
+  const ForgetPasswordRoute();
+  static const name = "ForgetPassword";
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const MaterialPage(
+      fullscreenDialog: true,
+      name: name,
+      child: ForgetPasswordPage(), // 忘记密码页面的实现
+    );
   }
 }
 
@@ -187,6 +275,50 @@ class ProxiesRoute extends GoRouteData {
   }
 }
 
+class PurchaseRoute extends GoRouteData {
+  const PurchaseRoute();
+  static const name = "Purchase";
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(
+      name: name,
+      child: PurchasePage(), // 确保 PurchasePage 是定义好的组件
+    );
+  }
+}
+
+@TypedGoRoute<OrderRoute>(
+  path: "/order",
+  name: OrderRoute.name,
+)
+class OrderRoute extends GoRouteData {
+  const OrderRoute();
+  static const name = "Order";
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const MaterialPage(
+      fullscreenDialog: true,
+      name: name,
+      child: OrderPage(),
+    );
+  }
+}
+
+class UserInfoRoute extends GoRouteData {
+  const UserInfoRoute();
+  static const name = "UserInfo";
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(
+      name: name,
+      child: UserInfoPage(), // 确保 UserInfoPage 已定义
+    );
+  }
+}
+
 class AddProfileRoute extends GoRouteData {
   const AddProfileRoute({this.url});
 
@@ -219,7 +351,8 @@ class ProfilesOverviewRoute extends GoRouteData {
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return BottomSheetPage(
       name: name,
-      builder: (controller) => ProfilesOverviewModal(scrollController: controller),
+      builder: (controller) =>
+          ProfilesOverviewModal(scrollController: controller),
     );
   }
 }
@@ -261,7 +394,7 @@ class LogsOverviewRoute extends GoRouteData {
   const LogsOverviewRoute();
   static const name = "Logs";
 
-  static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState>? $parentNavigatorKey = dynamicRootKey;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -295,7 +428,7 @@ class SettingsRoute extends GoRouteData {
   const SettingsRoute();
   static const name = "Settings";
 
-  static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState>? $parentNavigatorKey = dynamicRootKey;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -314,7 +447,7 @@ class ConfigOptionsRoute extends GoRouteData {
   final String? section;
   static const name = "Config Options";
 
-  static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState>? $parentNavigatorKey = dynamicRootKey;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -351,7 +484,7 @@ class AboutRoute extends GoRouteData {
   const AboutRoute();
   static const name = "About";
 
-  static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState>? $parentNavigatorKey = dynamicRootKey;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {

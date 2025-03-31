@@ -61,7 +61,6 @@ class ProfileTile extends HookConsumerWidget {
         side: BorderSide(color: effectiveOutlineColor),
         borderRadius: BorderRadius.circular(16),
       ),
-      clipBehavior: Clip.antiAlias,
       shadowColor: Colors.transparent,
       child: IntrinsicHeight(
         child: Row(

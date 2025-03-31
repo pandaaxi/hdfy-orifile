@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hiddify/core/preferences/general_preferences.dart';
 import 'package:hiddify/core/router/routes.dart';
-import 'package:hiddify/features/deep_link/notifier/deep_link_notifier.dart';
+import 'package:hiddify/features/panel/xboard/services/auth_provider.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -20,30 +20,58 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 @riverpod
 GoRouter router(RouterRef ref) {
   final notifier = ref.watch(routerListenableProvider.notifier);
-  final deepLink = ref.listen(
-    deepLinkNotifierProvider,
-    (_, next) async {
-      if (next case AsyncData(value: final link?)) {
-        await ref.state.push(AddProfileRoute(url: link.url).location);
-      }
-    },
-  );
-  final initialLink = deepLink.read();
-  String initialLocation = const HomeRoute().location;
-  if (initialLink case AsyncData(value: final link?)) {
-    initialLocation = AddProfileRoute(url: link.url).location;
-  }
+  final isLoggedIn = ref.watch(authProvider); // 获取登录状态
+  final hasSeenIntro =
+      ref.watch(Preferences.introCompleted); // 获取是否看过 IntroPage 的状态
 
   return GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: initialLocation,
+    initialLocation: '/intro', // 初始路由为 IntroPage
     debugLogDiagnostics: true,
     routes: [
       if (useMobileRouter) $mobileWrapperRoute else $desktopWrapperRoute,
       $introRoute,
+      $loginRoute,
+      $registerRoute,
+      $forgetPasswordRoute,
     ],
     refreshListenable: notifier,
-    redirect: notifier.redirect,
+    redirect: (context, state) {
+      final isIntroPage = state.uri.toString() == const IntroRoute().location;
+      final isLoggingIn = state.uri.toString() == const LoginRoute().location;
+      final isRegistering =
+          state.uri.toString() == const RegisterRoute().location; // 检查注册路由
+      final isForgettingPassword =
+          state.uri.toString() == const ForgetPasswordRoute().location;
+
+      if (!hasSeenIntro) {
+        // 如果用户还没看过 IntroPage，无论如何都跳转到 IntroPage
+        return const IntroRoute().location;
+      }
+
+      if (hasSeenIntro &&
+          !isLoggedIn &&
+          !isLoggingIn &&
+          !isRegistering &&
+          !isForgettingPassword) {
+        // 如果用户已看过 IntroPage，但未登录且不在登录、注册页面，跳转到登录页面
+        return const LoginRoute().location;
+      }
+
+      if (isLoggedIn && (isLoggingIn || isRegistering)) {
+        // 如果用户已登录且当前在登录页面或注册页面，则跳转到主页
+        return const HomeRoute().location;
+      }
+
+      if (hasSeenIntro && isIntroPage) {
+        // 如果用户已看过 IntroPage，但还在 IntroPage 页面，跳转到主页或登录页面
+        return isLoggedIn
+            ? const HomeRoute().location
+            : const LoginRoute().location;
+      }
+
+      return null;
+    },
     observers: [
       SentryNavigatorObserver(),
     ],
@@ -53,6 +81,8 @@ GoRouter router(RouterRef ref) {
 final tabLocations = [
   const HomeRoute().location,
   const ProxiesRoute().location,
+  const PurchaseRoute().location,
+  const UserInfoRoute().location,
   const ConfigOptionsRoute().location,
   const SettingsRoute().location,
   const LogsOverviewRoute().location,
